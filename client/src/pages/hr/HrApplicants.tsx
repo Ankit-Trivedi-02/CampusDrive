@@ -26,11 +26,7 @@ import {
 } from '../../utils/formatters';
 
 const STATUS_LIST: ApplicationStatus[] = [
-  'APPLIED',
-  'UNDER_REVIEW',
-  'SHORTLISTED',
-  'INTERVIEW_SCHEDULED',
-  'INTERVIEW_IN_PROGRESS',
+   'SHORTLISTED',  
   'SELECTED',
   'REJECTED',
   'ON_HOLD',

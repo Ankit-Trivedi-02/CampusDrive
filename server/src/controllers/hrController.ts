@@ -186,11 +186,8 @@ export const updateApplicationStatus = async (req: AuthRequest, res: Response): 
       'APPLIED',
       'UNDER_REVIEW',
       'SHORTLISTED',
-      'INTERVIEW_SCHEDULED',
-      'INTERVIEW_IN_PROGRESS',
       'SELECTED',
       'REJECTED',
-      'ON_HOLD',
     ];
 
     if (!validStatuses.includes(status)) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   GraduationCap,
   Plus,
@@ -8,15 +8,15 @@ import {
   Eye,
   CheckCircle,
   XCircle,
-} from 'lucide-react';
-import api from '../../services/api';
-import { User } from '../../types';
-import { Modal } from '../../components/ui/Modal';
-import { Pagination } from '../../components/ui/Pagination';
-import { useToast } from '../../components/ui/Toast';
-import { formatDate } from '../../utils/formatters';
+} from "lucide-react";
+import api from "../../services/api";
+import { User } from "../../types";
+import { Modal } from "../../components/ui/Modal";
+import { Pagination } from "../../components/ui/Pagination";
+import { useToast } from "../../components/ui/Toast";
+import { formatDate } from "../../utils/formatters";
 
-const COURSES = ['BTECH', 'BCA', 'MCA', 'MTECH', 'DIPLOMA', 'ITI'];
+const COURSES = ["BTECH", "BCA", "MCA", "MTECH", "DIPLOMA", "ITI"];
 
 export const CoordinatorStudents: React.FC = () => {
   const { success, error } = useToast();
@@ -28,9 +28,9 @@ export const CoordinatorStudents: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Filters
-  const [search, setSearch] = useState('');
-  const [selectedCourse, setSelectedCourse] = useState('ALL');
-  const [branchFilter, setBranchFilter] = useState('');
+  const [search, setSearch] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState("ALL");
+  const [branchFilter, setBranchFilter] = useState("");
 
   // Modals state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -39,25 +39,25 @@ export const CoordinatorStudents: React.FC = () => {
 
   // Form state
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    rollNumber: '',
-    course: 'BTECH',
-    branch: '',
-    semester: '7th',
-    password: '',
+    name: "",
+    email: "",
+    phone: "",
+    rollNumber: "",
+    course: "",
+    branch: "",
+    semester: "",
+    password: "",
     isActive: true,
   });
 
   const fetchStudents = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('/coordinator/students', {
+      const res = await api.get("/coordinator/students", {
         params: {
           search,
           course: selectedCourse,
-          branch: branchFilter ? branchFilter : 'ALL',
+          branch: branchFilter ? branchFilter : "ALL",
           page: currentPage,
           limit: 15,
         },
@@ -68,7 +68,7 @@ export const CoordinatorStudents: React.FC = () => {
         setTotalPages(res.data.totalPages || 1);
       }
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to fetch students');
+      error(err.response?.data?.message || "Failed to fetch students");
     } finally {
       setIsLoading(false);
     }
@@ -86,14 +86,14 @@ export const CoordinatorStudents: React.FC = () => {
 
   const openCreateModal = () => {
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      rollNumber: '',
-      course: 'BTECH',
-      branch: '',
-      semester: '7th',
-      password: '',
+      name: "",
+      email: "",
+      phone: "",
+      rollNumber: "",
+      course: "",
+      branch: "",
+      semester: "",
+      password: "",
       isActive: true,
     });
     setIsCreateModalOpen(true);
@@ -105,11 +105,11 @@ export const CoordinatorStudents: React.FC = () => {
       name: student.name,
       email: student.email,
       phone: student.phone,
-      rollNumber: student.rollNumber || '',
-      course: student.course || 'BTECH',
-      branch: student.branch || '',
-      semester: student.semester || '7th',
-      password: '',
+      rollNumber: student.rollNumber || "",
+      course: student.course || "",
+      branch: student.branch || "",
+      semester: student.semester || "",
+      password: "",
       isActive: student.isActive,
     });
     setIsEditModalOpen(true);
@@ -118,14 +118,14 @@ export const CoordinatorStudents: React.FC = () => {
   const handleCreateStudent = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await api.post('/coordinator/students', formData);
+      const res = await api.post("/coordinator/students", formData);
       if (res.data.success) {
         success(`Student profile created for ${formData.name}!`);
         setIsCreateModalOpen(false);
         fetchStudents();
       }
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to create student account');
+      error(err.response?.data?.message || "Failed to create student account");
     }
   };
 
@@ -141,7 +141,7 @@ export const CoordinatorStudents: React.FC = () => {
         fetchStudents();
       }
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to update student account');
+      error(err.response?.data?.message || "Failed to update student account");
     }
   };
 
@@ -154,7 +154,8 @@ export const CoordinatorStudents: React.FC = () => {
             Student Enrollment & Management
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Enroll students individually, assign academic domains, and maintain student placement records.
+            Enroll students individually, assign academic domains, and maintain
+            student placement records.
           </p>
         </div>
 
@@ -169,7 +170,10 @@ export const CoordinatorStudents: React.FC = () => {
 
       {/* Filter and Search */}
       <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
-        <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-sm">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="relative flex-1 max-w-sm"
+        >
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
@@ -227,7 +231,9 @@ export const CoordinatorStudents: React.FC = () => {
         ) : students.length === 0 ? (
           <div className="p-12 text-center">
             <GraduationCap className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-sm font-semibold text-slate-700">No students found</h3>
+            <h3 className="text-sm font-semibold text-slate-700">
+              No students found
+            </h3>
             <p className="text-xs text-slate-400 mt-1">
               Click "Enroll New Student" to add student records for recruitment.
             </p>
@@ -248,7 +254,10 @@ export const CoordinatorStudents: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {students.map((student) => (
-                  <tr key={student.id || student._id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr
+                    key={student.id || student._id}
+                    className="hover:bg-slate-50/70 transition-colors"
+                  >
                     <td className="px-6 py-4 font-semibold text-slate-900">
                       <div className="flex items-center gap-2.5">
                         <div className="w-7 h-7 rounded-full bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-xs">
@@ -259,23 +268,27 @@ export const CoordinatorStudents: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
-                        {student.rollNumber || '—'}
+                        {student.rollNumber || "—"}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="space-y-0.5">
-                        <p className="font-medium text-slate-800">{student.email}</p>
-                        <p className="text-slate-500 text-[11px]">{student.phone}</p>
+                        <p className="font-medium text-slate-800">
+                          {student.email}
+                        </p>
+                        <p className="text-slate-500 text-[11px]">
+                          {student.phone}
+                        </p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <span className="font-medium text-slate-800">
-                        {student.course || '—'}{' '}
-                        {student.branch ? `(${student.branch})` : ''}
+                        {student.course || "—"}{" "}
+                        {student.branch ? `(${student.branch})` : ""}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-slate-600">
-                      {student.semester || '—'}
+                      {student.semester || "—"}
                     </td>
                     <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1 font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
@@ -325,22 +338,10 @@ export const CoordinatorStudents: React.FC = () => {
                 type="text"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="e.g. Kavya Sharma"
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Roll Number *
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.rollNumber}
-                onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
-                placeholder="e.g. 2023BTCS099"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
@@ -353,7 +354,9 @@ export const CoordinatorStudents: React.FC = () => {
                 type="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 placeholder="kavya@student.edu"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
@@ -367,8 +370,23 @@ export const CoordinatorStudents: React.FC = () => {
                 type="text"
                 required
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
                 placeholder="9123456789"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Roll Number (Optional)
+              </label>
+              <input
+                type="text"
+                value={formData.rollNumber}
+                onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
+                placeholder="Optional"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
@@ -377,17 +395,16 @@ export const CoordinatorStudents: React.FC = () => {
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Academic Course *
               </label>
-              <select
+              <input
+                type="text"
+                required
                 value={formData.course}
-                onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden bg-white"
-              >
-                {COURSES.map((course) => (
-                  <option key={course} value={course}>
-                    {course}
-                  </option>
-                ))}
-              </select>
+                onChange={(e) =>
+                  setFormData({ ...formData, course: e.target.value })
+                }
+                placeholder="e.g. B.Tech, BCA, MCA"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+              />
             </div>
 
             <div>
@@ -397,21 +414,10 @@ export const CoordinatorStudents: React.FC = () => {
               <input
                 type="text"
                 value={formData.branch}
-                onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, branch: e.target.value })
+                }
                 placeholder="e.g. CSE / Mechanical / ECE"
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Current Semester
-              </label>
-              <input
-                type="text"
-                value={formData.semester}
-                onChange={(e) => setFormData({ ...formData, semester: e.target.value })}
-                placeholder="e.g. 7th / 8th"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
@@ -425,11 +431,29 @@ export const CoordinatorStudents: React.FC = () => {
                 required
                 minLength={6}
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 placeholder="At least 6 characters"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Semester (Optional)
+            </label>
+            <select
+              value={formData.semester}
+              onChange={(e) => setFormData({ ...formData, semester: e.target.value })}
+              className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+            >
+              <option value="">----</option>
+              {['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'].map((semester) => (
+                <option key={semester} value={semester}>{semester}</option>
+              ))}
+            </select>
           </div>
 
           <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-100">
@@ -468,11 +492,13 @@ export const CoordinatorStudents: React.FC = () => {
                 type="text"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
-
+            {/* 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Roll Number *
@@ -481,10 +507,12 @@ export const CoordinatorStudents: React.FC = () => {
                 type="text"
                 required
                 value={formData.rollNumber}
-                onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, rollNumber: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
-            </div>
+            </div> */}
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -494,7 +522,9 @@ export const CoordinatorStudents: React.FC = () => {
                 type="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
@@ -507,7 +537,9 @@ export const CoordinatorStudents: React.FC = () => {
                 type="text"
                 required
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
@@ -516,17 +548,16 @@ export const CoordinatorStudents: React.FC = () => {
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Academic Course
               </label>
-              <select
+              <input
+                type="text"
+                required
                 value={formData.course}
-                onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden bg-white"
-              >
-                {COURSES.map((course) => (
-                  <option key={course} value={course}>
-                    {course}
-                  </option>
-                ))}
-              </select>
+                onChange={(e) =>
+                  setFormData({ ...formData, course: e.target.value })
+                }
+                placeholder="e.g. B.Tech, BCA, MCA"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+              />
             </div>
 
             <div>
@@ -536,11 +567,13 @@ export const CoordinatorStudents: React.FC = () => {
               <input
                 type="text"
                 value={formData.branch}
-                onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, branch: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
             </div>
-
+            {/* 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Semester
@@ -548,10 +581,12 @@ export const CoordinatorStudents: React.FC = () => {
               <input
                 type="text"
                 value={formData.semester}
-                onChange={(e) => setFormData({ ...formData, semester: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, semester: e.target.value })
+                }
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
-            </div>
+            </div> */}
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -560,7 +595,9 @@ export const CoordinatorStudents: React.FC = () => {
               <input
                 type="password"
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 placeholder="Leave blank to preserve current password"
                 className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
               />
@@ -572,7 +609,9 @@ export const CoordinatorStudents: React.FC = () => {
               <input
                 type="checkbox"
                 checked={formData.isActive}
-                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, isActive: e.target.checked })
+                }
                 className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
               />
               <span>Student Account is Active</span>

@@ -4,11 +4,8 @@ export type ApplicationStatus =
   | 'APPLIED'
   | 'UNDER_REVIEW'
   | 'SHORTLISTED'
-  | 'INTERVIEW_SCHEDULED'
-  | 'INTERVIEW_IN_PROGRESS'
   | 'SELECTED'
-  | 'REJECTED'
-  | 'ON_HOLD';
+  | 'REJECTED';
 
 export interface IApplication extends Document {
   studentId: mongoose.Types.ObjectId;

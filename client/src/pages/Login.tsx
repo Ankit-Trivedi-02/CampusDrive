@@ -93,10 +93,10 @@ export const Login: React.FC = () => {
                 </div>
                 <input
                   type="text"
+                  placeholder="Enter your email"
                   required
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="admin@placement.edu / 9999999999"
                   className="block w-full pl-9 pr-3 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
@@ -112,10 +112,10 @@ export const Login: React.FC = () => {
                 </div>
                 <input
                   type="password"
+                  placeholder="Enter your password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
                   className="block w-full pl-9 pr-3 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>

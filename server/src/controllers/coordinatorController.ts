@@ -125,10 +125,10 @@ export const createStudent = async (req: AuthRequest, res: Response): Promise<vo
   try {
     const { name, email, phone, rollNumber, course, branch, semester, password } = req.body;
 
-    if (!name || !email || !phone || !rollNumber || !password) {
+    if (!name || !email || !phone || !password) {
       res.status(400).json({
         success: false,
-        message: 'Name, email, phone, roll number, and password are required.',
+        message: 'Name, email, phone, and password are required.',
       });
       return;
     }
@@ -139,17 +139,20 @@ export const createStudent = async (req: AuthRequest, res: Response): Promise<vo
       return;
     }
 
-    const existingRoll = await User.findOne({ rollNumber: rollNumber.trim() });
-    if (existingRoll) {
-      res.status(400).json({ success: false, message: 'Student with this roll number already exists.' });
-      return;
+    const normalizedRollNumber = typeof rollNumber === 'string' ? rollNumber.trim() : '';
+    if (normalizedRollNumber) {
+      const existingRoll = await User.findOne({ rollNumber: normalizedRollNumber });
+      if (existingRoll) {
+        res.status(400).json({ success: false, message: 'Student with this roll number already exists.' });
+        return;
+      }
     }
 
     const student = await User.create({
       name: name.trim(),
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
-      rollNumber: rollNumber.trim(),
+      rollNumber: normalizedRollNumber,
       course: course || '',
       branch: branch || '',
       semester: semester || '',
