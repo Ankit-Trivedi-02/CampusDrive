@@ -14,12 +14,6 @@ export const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleRoleQuickFill = (email: string, pass: string) => {
-    setIdentifier(email);
-    setPassword(pass);
-    setErrorMessage('');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
@@ -96,7 +90,7 @@ export const Login: React.FC = () => {
                   required
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="admin@placement.edu / 9999999999"
+                  placeholder="Enter your email, phone or roll number"
                   className="block w-full pl-9 pr-3 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
@@ -115,7 +109,7 @@ export const Login: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
+                  placeholder="Enter your password"
                   className="block w-full pl-9 pr-3 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
@@ -138,50 +132,6 @@ export const Login: React.FC = () => {
               </button>
             </div>
           </form>
-
-          {/* Quick Demo Access Bar for Evaluators */}
-          <div className="mt-6 pt-6 border-t border-slate-100">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2.5 text-center">
-              Quick Demo Logins (Click to Autofill)
-            </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <button
-                type="button"
-                onClick={() => handleRoleQuickFill('admin@placement.edu', 'AdminPassword123!')}
-                className="p-2 text-left rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-100/60 transition-colors"
-              >
-                <div className="font-bold text-purple-900">Admin</div>
-                <div className="text-[10px] text-purple-700 truncate">admin@placement.edu</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleQuickFill('coordinator@placement.edu', 'Coordinator123!')}
-                className="p-2 text-left rounded-lg border border-indigo-200 bg-indigo-50/60 hover:bg-indigo-100/60 transition-colors"
-              >
-                <div className="font-bold text-indigo-900">Coordinator</div>
-                <div className="text-[10px] text-indigo-700 truncate">coordinator@placement.edu</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleQuickFill('hr@infosys.com', 'HrPassword123!')}
-                className="p-2 text-left rounded-lg border border-teal-200 bg-teal-50/60 hover:bg-teal-100/60 transition-colors"
-              >
-                <div className="font-bold text-teal-900">HR / Company</div>
-                <div className="text-[10px] text-teal-700 truncate">hr@infosys.com</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleQuickFill('aarav.patel@student.edu', 'Student123!')}
-                className="p-2 text-left rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-100/60 transition-colors"
-              >
-                <div className="font-bold text-blue-900">Student</div>
-                <div className="text-[10px] text-blue-700 truncate">aarav.patel@student.edu</div>
-              </button>
-            </div>
-          </div>
         </div>
 
         <div className="mt-4 text-center">
