@@ -144,7 +144,7 @@ export const MakeApplication: React.FC = () => {
                   const sId = s.id || (s as any)._id;
                   return (
                     <option key={sId} value={sId}>
-                      {s.name} ({s.rollNumber || 'No Roll'}) &mdash; {s.course} {s.branch ? `(${s.branch})` : ''}
+                      {s.name} &mdash; {s.course} {s.branch ? `(${s.branch})` : ''}
                     </option>
                   );
                 })}
@@ -158,8 +158,7 @@ export const MakeApplication: React.FC = () => {
                     <span className="font-bold text-slate-900">{selectedStudent.name}</span>
                   </div>
                   <p className="text-slate-600">
-                    Roll: <strong className="font-mono">{selectedStudent.rollNumber}</strong> &middot;{' '}
-                    {selectedStudent.course} ({selectedStudent.branch})
+                    {selectedStudent.course}{selectedStudent.branch ? ` (${selectedStudent.branch})` : ''}
                   </p>
                   <p className="text-slate-500 text-[11px]">{selectedStudent.email}</p>
                 </div>
